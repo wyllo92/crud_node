@@ -59,6 +59,22 @@ class UserRoleController {
     }
   }
 
+  async showAllUserRoles(req, res) {
+    try {
+      const userRoleModel = await UserRoleModel.showAllUserRoles();
+      if (!userRoleModel || userRoleModel.length === 0) {
+        return res.status(404).json({ error: 'No user roles found' });
+      }
+      res.status(200).json({
+        message: 'User roles retrieved successfully',
+        data: userRoleModel
+      });
+    } catch (error) {
+      console.error('Error getting user roles:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  }
+
   async update(req, res) {
     try {
          const { user_id, role_id, status_id} = req.body;

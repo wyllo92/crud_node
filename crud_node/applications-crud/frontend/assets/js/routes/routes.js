@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     '#profile': 'views/profile/index.html',
     '#userStatus': 'views/userStatus/index.html',
     '#module': 'views/module/index.html',
-    '#roleModule': 'views/roleModule/index.html',
+    '#moduleRole': 'views/moduleRole/index.html',
   };
 
   function loadContent() {

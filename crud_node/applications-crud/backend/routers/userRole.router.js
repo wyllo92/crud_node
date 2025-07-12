@@ -16,6 +16,10 @@ router.route(`${name}/:id`)
 
   //Login route
   router.route(`${nameUserRole}/:id`)
-    .get(UserRoleController.showRoleUser);// Login a user
+    .get(UserRoleController.showRoleUser);// Show user roles by user ID
+
+  // Get all user roles with details
+  router.route(nameUserRole)
+    .get(UserRoleController.showAllUserRoles);// Show all user roles with details
 
 export default router;

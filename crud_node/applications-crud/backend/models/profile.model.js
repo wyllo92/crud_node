@@ -50,6 +50,19 @@ class ProfileModel {
     }
 
   }
+
+  static async updateOldPhotoReferences() {
+    try {
+      const [result] = await connect.query(
+        'UPDATE Profile SET photo_url = ? WHERE photo_url = ? OR photo_url = ?',
+        ['default-profile.svg', 'img.jpg', '']
+      );
+      return result.affectedRows;
+    } catch (error) {
+      console.error('Error updating old photo references:', error);
+      return 0;
+    }
+  }
  
 }
 export default ProfileModel;

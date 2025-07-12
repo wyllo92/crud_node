@@ -1,0 +1,1390 @@
+{
+	"info": {
+		"_postman_id": "7c538f51-d339-40af-9433-876cc9bcfc67",
+		"name": "CRUD Node API",
+		"description": "Colección completa para probar todos los endpoints del backend CRUD Node. Incluye autenticación, gestión de usuarios, perfiles, roles, módulos, permisos y utilidades. Configura la variable 'baseUrl' a tu servidor local (ej: http://localhost:3000) antes de usar.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "45716216",
+		"_collection_link": "https://team-kohabitar.postman.co/workspace/team-Kohabitar-Workspace~18f31f43-c883-4bd7-8a2b-f3313865ec8f/collection/45716216-7c538f51-d339-40af-9433-876cc9bcfc67?action=share&source=collection_link&creator=45716216"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"description": "Gestión completa de usuarios del sistema. Incluye autenticación, creación, lectura, actualización y eliminación de usuarios. Los usuarios pueden tener diferentes estados y roles asignados.",
+			"item": [
+				{
+					"name": "Authentication",
+					"description": "Endpoints para autenticación de usuarios. El login retorna un token JWT que debe usarse en requests posteriores.",
+					"item": [
+						{
+							"name": "Login User",
+							"description": "Autenticación de usuarios del sistema. Retorna un token JWT que debe incluirse en el header Authorization: Bearer {token} para requests posteriores.",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"user\": \"Admin\",\n  \"password\": \"Admin2025*\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api_v1/login",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api_v1",
+										"login"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get All Users",
+					"description": "Obtiene todos los usuarios registrados en el sistema. Retorna una lista con información básica de cada usuario.",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api_v1/user",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api_v1",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User by ID",
+					"description": "Obtiene información detallada de un usuario específico por su ID. Incluye datos del usuario y su estado actual.",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api_v1/user/2",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api_v1",
+								"user",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create User",
+					"description": "Crea un nuevo usuario en el sistema. El password_hash debe ser una contraseña válida. El status_id debe existir en la tabla user_status.",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"testuser\",\n  \"email\": \"test@example.com\",\n  \"password_hash\": \"password123\",\n  \"status_id\": 1\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api_v1/user",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api_v1",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"description": "Actualiza la información de un usuario existente. Solo se actualizan los campos proporcionados en el body.",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"updateduser\",\n  \"email\": \"updated@example.com\",\n  \"password\": \"newpassword123\",\n  \"status_id\": 1\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api_v1/user/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api_v1",
+								"user",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"description": "Elimina permanentemente un usuario del sistema. Esta acción no se puede deshacer.",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api_v1/user/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api_v1",
+								"user",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Profiles",
+			"description": "Gestión de perfiles de usuario. Cada perfil contiene información personal como nombre, dirección, teléfono, documento y foto. Los perfiles están vinculados a usuarios.",
+			"item": [
+				{
+					"name": "Get All Profiles",
+					"description": "Obtiene todos los perfiles de usuario registrados en el sistema. Incluye información personal y datos del documento.",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api_v1/profile",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api_v1",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Profile by ID",
+					"description": "Obtiene información detallada de un perfil específico por su ID. Incluye datos personales, documento y foto.",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api_v1/profile/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api_v1",
+								"profile",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Profile",
+					"description": "Crea un nuevo perfil de usuario. El user_id debe existir en la tabla users. El document_type_id debe existir en la tabla document_type. La fecha debe estar en formato YYYY-MM-DD.",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"user_id\": 1,\n  \"first_name\": \"Juan\",\n  \"last_name\": \"Pérez\",\n  \"address\": \"Calle 123 #45-67\",\n  \"phone\": \"3001234567\",\n  \"document_type_id\": 1,\n  \"document_number\": \"12345678\",\n  \"birth_date\": \"1990-01-01\",\n  \"photo_url\": \"default-profile.svg\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api_v1/profile",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api_v1",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Profile",
+					"description": "Actualiza la información de un perfil existente. Solo se actualizan los campos proporcionados en el body.",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"user_id\": 1,\n  \"first_name\": \"Juan Carlos\",\n  \"last_name\": \"Pérez García\",\n  \"address\": \"Calle 123 #45-67, Bogotá\",\n  \"phone\": \"3001234567\",\n  \"document_type_id\": 1,\n  \"document_number\": \"12345678\",\n  \"birth_date\": \"1990-01-01\",\n  \"photo_url\": \"default-profile.svg\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api_v1/profile/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api_v1",
+								"profile",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Profile",
+					"description": "Elimina permanentemente un perfil del sistema. Esta acción no se puede deshacer.",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api_v1/profile/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api_v1",
+								"profile",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Photo References",
+					"description": "Migración para actualizar referencias de fotos en la base de datos. Cambia referencias antiguas 'img.jpg' por 'default-profile.svg'.",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api_v1/profile/update-photos",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api_v1",
+								"profile",
+								"update-photos"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Roles",
+			"description": "Administración de roles del sistema. Los roles definen las capacidades y permisos que puede tener un usuario en diferentes módulos.",
+			"item": [
+				{
+					"name": "Get All Roles",
+					"description": "Obtiene todos los roles definidos en el sistema. Incluye información sobre si están activos o no.",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api_v1/role",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api_v1",
+								"role"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Role by ID",
+					"description": "Obtiene información detallada de un rol específico por su ID. Incluye descripción y estado activo.",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api_v1/role/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api_v1",
+								"role",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Role",
+					"description": "Crea un nuevo rol en el sistema. El is_active determina si el rol está disponible para asignar a usuarios.",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"editor\",\n  \"description\": \"Content Editor Role\",\n  \"is_active\": 1\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api_v1/role",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api_v1",
+								"role"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Role",
+					"description": "Actualiza la información de un rol existente. Puede cambiar nombre, descripción y estado activo.",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"senior_editor\",\n  \"description\": \"Senior Content Editor Role\",\n  \"is_active\": 1\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api_v1/role/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api_v1",
+								"role",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Role",
+					"description": "Elimina permanentemente un rol del sistema. Verifica que no esté asignado a usuarios antes de eliminar.",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api_v1/role/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api_v1",
+								"role",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User Status",
+			"description": "Gestión de estados de usuario. Define los diferentes estados que puede tener una cuenta de usuario (activo, inactivo, pendiente, etc.).",
+			"item": [
+				{
+					"name": "Get All User Status",
+					"description": "Obtiene todos los estados de usuario definidos en el sistema. Estos estados determinan si un usuario puede acceder al sistema.",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api_v1/userStatus/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api_v1",
+								"userStatus",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Status by ID",
+					"description": "Obtiene información detallada de un estado de usuario específico por su ID.",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api_v1/userStatus/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api_v1",
+								"userStatus",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create User Status",
+					"description": "Crea un nuevo estado de usuario en el sistema. Los estados comunes incluyen: activo, inactivo, pendiente, bloqueado.",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"pending\",\n  \"description\": \"User account pending activation\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api_v1/userStatus",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api_v1",
+								"userStatus"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User Status",
+					"description": "Actualiza la información de un estado de usuario existente. Puede cambiar nombre y descripción.",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"verified\",\n  \"description\": \"User account verified and active\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api_v1/userStatus/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api_v1",
+								"userStatus",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User Status",
+					"description": "Elimina permanentemente un estado de usuario del sistema. Verifica que no esté en uso antes de eliminar.",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api_v1/userStatus/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api_v1",
+								"userStatus",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Document Types",
+			"description": "Gestión de tipos de documento. Define los diferentes tipos de identificación válidos para los perfiles de usuario (CC, CE, PP, etc.).",
+			"item": [
+				{
+					"name": "Get All Document Types",
+					"description": "Obtiene todos los tipos de documento definidos en el sistema. Estos tipos se usan para validar documentos de identidad.",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api_v1/documentType/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api_v1",
+								"documentType",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Document Type by ID",
+					"description": "Obtiene información detallada de un tipo de documento específico por su ID.",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api_v1/documentType/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api_v1",
+								"documentType",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Document Type",
+					"description": "Crea un nuevo tipo de documento en el sistema. Ejemplos comunes: CC (Cédula), CE (Cédula Extranjería), PP (Pasaporte).",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"PP\",\n  \"description\": \"Pasaporte\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api_v1/documentType",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api_v1",
+								"documentType"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Document Type",
+					"description": "Actualiza la información de un tipo de documento existente. Puede cambiar nombre y descripción.",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"PP\",\n  \"description\": \"Pasaporte Internacional\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api_v1/documentType/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api_v1",
+								"documentType",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Document Type",
+					"description": "Elimina permanentemente un tipo de documento del sistema. Verifica que no esté en uso antes de eliminar.",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api_v1/documentType/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api_v1",
+								"documentType",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Modules",
+			"description": "Gestión de módulos del sistema. Los módulos representan las diferentes secciones o funcionalidades disponibles en la aplicación.",
+			"item": [
+				{
+					"name": "Get All Modules",
+					"description": "Obtiene todos los módulos definidos en el sistema. Incluye información sobre rutas, iconos y estado activo.",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api_v1/module",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api_v1",
+								"module"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Module by ID",
+					"description": "Obtiene información detallada de un módulo específico por su ID. Incluye ruta, icono y descripción.",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api_v1/module/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api_v1",
+								"module",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Module",
+					"description": "Crea un nuevo módulo en el sistema. El icon debe ser una clase de Bootstrap Icons. La route define la navegación.",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Reports\",\n  \"route\": \"#reports\",\n  \"icon\": \"bi-graph-up\",\n  \"description\": \"Module for generating reports\",\n  \"is_active\": 1\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api_v1/module",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api_v1",
+								"module"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Module",
+					"description": "Actualiza la información de un módulo existente. Puede cambiar nombre, ruta, icono, descripción y estado activo.",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Advanced Reports\",\n  \"route\": \"#advanced-reports\",\n  \"icon\": \"bi-graph-up-arrow\",\n  \"description\": \"Advanced reporting module\",\n  \"is_active\": 1\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api_v1/module/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api_v1",
+								"module",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Module",
+					"description": "Elimina permanentemente un módulo del sistema. Verifica que no tenga permisos asignados antes de eliminar.",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api_v1/module/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api_v1",
+								"module",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Modules by User Role",
+					"description": "Obtiene los módulos disponibles para un usuario específico con un rol determinado. Usado para construir menús dinámicos.",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"user_id\": 1,\n  \"role_id\": 1\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api_v1/moduleUserRole",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api_v1",
+								"moduleUserRole"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Module Roles",
+			"description": "Gestión de permisos de roles en módulos. Define qué acciones puede realizar cada rol en cada módulo (ver, crear, editar, eliminar).",
+			"item": [
+				{
+					"name": "Get All Module Roles",
+					"description": "Obtiene todas las asignaciones de permisos de roles en módulos. Incluye información detallada de permisos.",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api_v1/moduleRole",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api_v1",
+								"moduleRole"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Module Role by ID",
+					"description": "Obtiene información detallada de una asignación específica de permisos de rol en módulo.",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api_v1/moduleRole/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api_v1",
+								"moduleRole",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Module Role",
+					"description": "Crea una nueva asignación de permisos de rol en módulo. Los valores 1=permitido, 0=denegado para cada permiso.",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"module_fk\": 1,\n  \"role_user_fk\": 1,\n  \"can_view\": 1,\n  \"can_create\": 1,\n  \"can_edit\": 1,\n  \"can_delete\": 0\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api_v1/moduleRole",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api_v1",
+								"moduleRole"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Module Role",
+					"description": "Actualiza los permisos de un rol en un módulo específico. Puede cambiar cualquier permiso individual.",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"module_fk\": 1,\n  \"role_user_fk\": 1,\n  \"can_view\": 1,\n  \"can_create\": 1,\n  \"can_edit\": 1,\n  \"can_delete\": 1\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api_v1/moduleRole/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api_v1",
+								"moduleRole",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Module Role",
+					"description": "Elimina permanentemente una asignación de permisos de rol en módulo. Revoca todos los permisos del rol en ese módulo.",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api_v1/moduleRole/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api_v1",
+								"moduleRole",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User Roles",
+			"description": "Gestión de asignación de roles a usuarios. Permite asignar múltiples roles a un usuario y controlar su estado en cada rol.",
+			"item": [
+				{
+					"name": "Get All User Roles",
+					"description": "Obtiene todas las asignaciones de roles a usuarios en el sistema. Incluye información del usuario, rol y estado.",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api_v1/userRole",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api_v1",
+								"userRole"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Role by ID",
+					"description": "Obtiene información detallada de una asignación específica de rol a usuario.",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api_v1/userRole/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api_v1",
+								"userRole",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create User Role",
+					"description": "Asigna un rol a un usuario específico. El status_id determina si la asignación está activa o no.",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"user_id\": 1,\n  \"role_id\": 1,\n  \"status_id\": 1\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api_v1/userRole",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api_v1",
+								"userRole"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User Role",
+					"description": "Actualiza la asignación de rol a usuario. Puede cambiar el rol asignado o el estado de la asignación.",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"user_id\": 1,\n  \"role_id\": 2,\n  \"status_id\": 1\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api_v1/userRole/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api_v1",
+								"userRole",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User Role",
+					"description": "Elimina permanentemente una asignación de rol a usuario. El usuario perderá todos los permisos de ese rol.",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api_v1/userRole/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api_v1",
+								"userRole",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Roles by User ID",
+					"description": "Obtiene todos los roles asignados a un usuario específico. Útil para verificar permisos de un usuario.",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api_v1/userIdRole/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api_v1",
+								"userIdRole",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All User Roles with Details",
+					"description": "Obtiene todas las asignaciones de roles a usuarios con información detallada. Incluye datos del usuario, rol y estado.",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api_v1/userIdRole",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api_v1",
+								"userIdRole"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "API Users",
+			"description": "Gestión de usuarios específicos para acceso a la API. Estos usuarios tienen autenticación separada del sistema principal.",
+			"item": [
+				{
+					"name": "Get All API Users",
+					"description": "Obtiene todos los usuarios de API registrados en el sistema. Estos usuarios tienen acceso especial a endpoints de la API.",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api_v1/apiuser",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api_v1",
+								"apiuser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get API User by ID",
+					"description": "Obtiene información detallada de un usuario de API específico por su ID.",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api_v1/apiuser/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api_v1",
+								"apiuser",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create API User",
+					"description": "Crea un nuevo usuario de API. Estos usuarios tienen autenticación independiente del sistema principal.",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"apiuser\",\n  \"email\": \"api@example.com\",\n  \"password\": \"apipassword123\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api_v1/apiuser",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api_v1",
+								"apiuser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update API User",
+					"description": "Actualiza la información de un usuario de API existente. Puede cambiar username, email y password.",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"updatedapiuser\",\n  \"email\": \"updatedapi@example.com\",\n  \"password\": \"newapipassword123\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api_v1/apiuser/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api_v1",
+								"apiuser",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete API User",
+					"description": "Elimina permanentemente un usuario de API del sistema. Esta acción no se puede deshacer.",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api_v1/apiuser/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api_v1",
+								"apiuser",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login API User",
+					"description": "Autenticación específica para usuarios de API. Retorna un token JWT para acceso a endpoints protegidos.",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"apiuser\",\n  \"password\": \"apipassword123\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api_v1/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api_v1",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "File Upload",
+			"description": "Gestión de carga de archivos al servidor. Permite subir imágenes, documentos y otros tipos de archivos. Los archivos se almacenan en la carpeta uploads.",
+			"item": [
+				{
+					"name": "Upload File",
+					"description": "Sube un archivo al servidor. Acepta múltiples tipos de archivo. El archivo se almacena con un nombre único basado en timestamp.",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api_v1/upload",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api_v1",
+								"upload"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Utilities",
+			"description": "Utilidades del sistema. Incluye pruebas de conexión a base de datos y herramientas de clasificación de salarios.",
+			"item": [
+				{
+					"name": "Test MySQL Connection",
+					"description": "Prueba la conexión a la base de datos MySQL. Útil para verificar que el servidor puede conectarse correctamente a la base de datos.",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api_v1/testMysql",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api_v1",
+								"testMysql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Classify Salary",
+					"description": "Clasifica un salario según la experiencia y posición del empleado. Retorna información sobre el nivel salarial y recomendaciones.",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"salary\": 5000000,\n  \"experience\": 5,\n  \"position\": \"developer\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api_v1/classify",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api_v1",
+								"classify"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:3000",
+			"type": "string"
+		},
+		{
+			"key": "authToken",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

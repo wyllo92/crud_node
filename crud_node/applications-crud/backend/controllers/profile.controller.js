@@ -7,12 +7,12 @@ class ProfileController {
     try {
       const {user_id, first_name, last_name, address, phone, document_type_id, document_number, photo_url, birth_date} = req.body;
       // Basic validation
-      if (!user_id || !first_name || !last_name || !address||!phone || !document_type_id || !document_number || !photo_url || !birth_date) {
+      if (!user_id || !first_name || !last_name || !address||!phone || !document_type_id || !document_number || !birth_date) {
         return res.status(400).json({ error: 'Required fields are missing' });
       }
      
       const profileId = await ProfileModel.create({
-        user_id, first_name, last_name, address, phone, document_type_id, document_number, photo_url, birth_date
+        user_id, first_name, last_name, address, phone, document_type_id, document_number, photo_url: photo_url || 'default-profile.svg', birth_date
       });
       res.status(201).json({
         message: 'Profile created successfully',
@@ -46,11 +46,11 @@ class ProfileController {
       const { user_id, first_name, last_name, address, phone, document_type_id, document_number, photo_url, birth_date} = req.body;
       const id = req.params.id;
       // Basic validate
-      if (!user_id || !first_name || !last_name || !address||!phone || !document_type_id || !document_number || !photo_url || !birth_date) {
+      if (!user_id || !first_name || !last_name || !address||!phone || !document_type_id || !document_number || !birth_date) {
         return res.status(400).json({ error: 'Required fields are missing' });
       }
       
-      const updateProfileModel = await ProfileModel.update(id, { user_id, first_name, last_name, address, phone, document_type_id, document_number, photo_url, birth_date});
+      const updateProfileModel = await ProfileModel.update(id, { user_id, first_name, last_name, address, phone, document_type_id, document_number, photo_url: photo_url || 'default-profile.svg', birth_date});
       res.status(201).json({
         message: 'Profile update successfully',
         data: updateProfileModel
@@ -98,6 +98,19 @@ class ProfileController {
       });
     } catch (error) {
       console.error('Error in registration:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  }
+
+  async updatePhotoReferences(req, res) {
+    try {
+      const updatedCount = await ProfileModel.updateOldPhotoReferences();
+      res.status(200).json({
+        message: 'Photo references updated successfully',
+        updatedCount: updatedCount
+      });
+    } catch (error) {
+      console.error('Error updating photo references:', error);
       res.status(500).json({ error: 'Internal Server Error' });
     }
   }

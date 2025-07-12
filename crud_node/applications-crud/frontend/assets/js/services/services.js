@@ -47,3 +47,19 @@ async function getServicesAuth(data, method, url, token) {
   
   return await fetch(url, parameters);
 }
+
+async function uploadFileService(file, url) {
+  const formData = new FormData();
+  formData.append('file', file);
+
+  const parameters = {
+    method: 'POST',
+    mode: 'cors',
+    headers: {
+      "X-Requested-With": "XMLHttpRequest"
+    },
+    body: formData
+  };
+
+  return await fetch(url, parameters);
+}

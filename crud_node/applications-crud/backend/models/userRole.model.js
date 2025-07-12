@@ -50,5 +50,25 @@ class UserRoleModel {
     return rows[0];
   }
 
+  static async showAllUserRoles() {
+    const [rows] = await connect.query(`
+      SELECT 
+        ur.id,
+        ur.user_id,
+        u.username as user_name,
+        ur.role_id,
+        r.name as role_name,
+        ur.status_id,
+        us.name as status_name
+      FROM User_role ur
+      INNER JOIN User u ON ur.user_id = u.id
+      INNER JOIN Role r ON ur.role_id = r.id
+      INNER JOIN User_status us ON ur.status_id = us.id
+      WHERE ur.status_id = 1
+      ORDER BY ur.id
+    `);
+    return rows;
+  }
+
 }
 export default UserRoleModel;
