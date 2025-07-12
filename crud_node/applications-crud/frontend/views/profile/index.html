@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulario de Perfil</title>
+  <!-- Favicon -->
+  <link rel="icon" href="../../assets//img/logos/logo.png" type="image/png">
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome para iconos -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Data table -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/2.3.2/css/dataTables.dataTables.css">
+  <!-- Loading -->
+  <link rel="stylesheet" href="../../assets/css/loading.css">
+  <!-- Profile specific styles -->
+  <link rel="stylesheet" href="../../assets/css/profile.css">
+</head>
+
+<body>
+
+  <!--Container -->
+  <div class="container-fluid d-flex flex-column min-vh-100 profile-container">
+
+    <!--Content data-->
+    <main>
+      <div class="profile-header">
+        <h1 class="text-center mb-0">Gestión de Perfiles</h1>
+        <p class="text-center mb-0 mt-2">Administra los perfiles de usuario del sistema</p>
+      </div>
+      
+      <div class="d-flex justify-content-end mb-3">
+        <button type="button" title="Agregar Perfil" class="btn btn-primary" onclick="add()">
+          <i class="fa fa-plus me-1"></i>Nuevo Perfil
+        </button>
+      </div>
+
+      <!--Table-->
+      <div class="table-responsive profile-table">
+        <table class="table table-dark table-hover" id="app-table">
+          <thead class=" ">
+            <tr class="table-primary text-center">
+              <th>#</th>
+              <th>Usuario</th>
+              <th>Nombre</th>
+              <th>Apellido</th>
+              <th>Dirección</th>
+              <th>Teléfono</th>
+              <th>Tipo Documento</th>
+              <th>Número Documento</th>
+              <th>Foto</th>
+              <th>Fecha Nacimiento</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="app-table-body" class="text-center">
+
+          </tbody>
+          <tfoot>
+            <tr class="table-primary text-center">
+              <td>#</td>
+              <td>Usuario</td>
+              <td>Nombre</td>
+              <td>Apellido</td>
+              <td>Dirección</td>
+              <td>Teléfono</td>
+              <td>Tipo Documento</td>
+              <td>Número Documento</td>
+              <td>Foto</td>
+              <td>Fecha Nacimiento</td>
+              <td>Acciones</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+
+      <!-- Modal -->
+      <div class="modal fade profile-modal" id="appModal" tabindex="-1" aria-labelledby="appModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="appModalLabel">Perfil de Usuario</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <!--Form-->
+              <form id="profileForm" class="profile-form">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="mb-3">
+                      <label for="user_id" class="form-label">Usuario *</label>
+                      <select class="form-select" id="user_id" name="user_id" required>
+                        <option value="" selected disabled>Seleccione un usuario</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="mb-3">
+                      <label for="document_type_id" class="form-label">Tipo de Documento *</label>
+                      <select class="form-select" id="document_type_id" name="document_type_id" required>
+                        <option value="" selected disabled>Seleccione tipo de documento</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="mb-3">
+                      <label for="first_name" class="form-label">Nombre *</label>
+                      <input type="text" class="form-control" placeholder="Ingrese el nombre" id="first_name" name="first_name" required>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="mb-3">
+                      <label for="last_name" class="form-label">Apellido *</label>
+                      <input type="text" class="form-control" placeholder="Ingrese el apellido" id="last_name" name="last_name" required>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="mb-3">
+                      <label for="address" class="form-label">Dirección *</label>
+                      <input type="text" class="form-control" placeholder="Ingrese la dirección" id="address" name="address" required>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="mb-3">
+                      <label for="phone" class="form-label">Teléfono *</label>
+                      <input type="text" class="form-control" placeholder="Ingrese el teléfono" id="phone" name="phone" required>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="mb-3">
+                      <label for="document_number" class="form-label">Número de Documento *</label>
+                      <input type="text" class="form-control" placeholder="Ingrese el número de documento" id="document_number" name="document_number" required>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="mb-3">
+                      <label for="birth_date" class="form-label">Fecha de Nacimiento *</label>
+                      <input type="date" class="form-control" id="birth_date" name="birth_date" required>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                  <label for="photo_url" class="form-label">URL de Foto</label>
+                  <input type="text" class="form-control edit-input" placeholder="URL de la foto" id="photo_url" name="photo_url" value="img.jpg" disabled>
+                </div>
+
+                <div class="mb-3">
+                  <div class="btn-group w-100" role="group" aria-label="Botones de formulario">
+                    <button type="reset" class="btn btn-outline-secondary">
+                      <i class="fas fa-undo me-1"></i>Limpiar
+                    </button>
+                    <button type="submit" class="btn btn-outline-primary">
+                      <i class="fas fa-paper-plane me-1"></i>Enviar
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+    <!--End Content data-->
+
+  </div>
+  <!--End Container -->
+
+  <!--Loading -->
+  <div id="loading-screen" class="loading-screen">
+    <div class="spinner-border text-light spinner" role="status">
+      <span class="visually-hidden">Loading ...</span>
+    </div>
+    <p class="mt-3">Cargando datos, por favor espere...</p>
+  </div>
+  <!--End Loading -->
+
+  <!-- Bootstrap 5 JS Bundle con Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Data table -->
+  <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+  <script src="https://cdn.datatables.net/2.3.2/js/dataTables.js"></script>
+
+     <!-- JS personalizado -->
+  <script src="../../assets/js/app/constants.js"></script>
+  <script src="../../assets/js/storage/appStorage.js"></script>
+  <script src="../../assets/js/services/services.js"></script>
+  <script src="../../assets/js/app/app.js"></script>
+  <script src="../../assets/js/utils/Form.js"></script>
+  <script src="../../assets/js/controllers/profile/profile.controller.js"></script>
+
+
+</body>
+
+</html>
